@@ -1,0 +1,36 @@
+{
+  "name": "mskills",
+  "version": "1.0.0",
+  "description": "Dopa tu OpenCode con 53 Skills y Agentes de nivel Dios para FullStack, Marketing y Arquitectura.",
+  "main": "dist/cli.js",
+  "bin": {
+    "mskills": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "base.json",
+    "agents",
+    "skills"
+  ],
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "opencode",
+    "ai",
+    "skills",
+    "agents",
+    "fullstack",
+    "cli",
+    "mskills"
+  ],
+  "author": "Tu Nombre",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
+}

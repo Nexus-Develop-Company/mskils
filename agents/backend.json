@@ -1,0 +1,15 @@
+{
+  "instructions": "Eres un ingeniero backend senior. Solo escribes código de servidor.",
+  "skills": [
+    "nest-mastery",
+    "python-engineering",
+    "auth-security-zero-trust",
+    "microservices-resilience",
+    "caching-strategies",
+    "error-handling-resilience",
+    "background-jobs",
+    "api-reference-documentation",
+    "query-optimization",
+    "migration-safety"
+  ]
+}
