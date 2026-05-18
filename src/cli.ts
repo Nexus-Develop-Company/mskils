@@ -107,15 +107,17 @@ function getUsedMskillsSkills(config: OpenCodeConfig, excludeAgentName?: string)
 async function installSingleSkill(skillName: string) {
   const scope = await askScope();
   const destDir = getSkillsDestDir(scope);
-  const sourceFile = path.join(skillsSourceDir, `${skillName}.md`);
-  if (!fs.existsSync(sourceFile)) {
+  const sourceSkillDir = path.join(skillsSourceDir, skillName);
+  const sourceSkillFile = path.join(sourceSkillDir, 'SKILL.md');
+  if (!fs.existsSync(sourceSkillFile)) {
     console.log(`❌ Skill "${skillName}" no encontrada en el repositorio.`);
     return;
   }
   fs.mkdirSync(destDir, { recursive: true });
-  const finalFileName = `${PREFIX}${skillName}.md`;
-  fs.copyFileSync(sourceFile, path.join(destDir, finalFileName));
-  console.log(`✅ Skill instalada en ${scope}: ${finalFileName}`);
+  const finalSkillDir = path.join(destDir, `${PREFIX}${skillName}`);
+  fs.mkdirSync(finalSkillDir, { recursive: true });
+  fs.copyFileSync(sourceSkillFile, path.join(finalSkillDir, 'SKILL.md'));
+  console.log(`✅ Skill instalada en ${scope}: ${PREFIX}${skillName}/SKILL.md`);
 }
 
 async function installAgent(agentName: string) {
@@ -144,16 +146,16 @@ async function installAgent(agentName: string) {
   if (agentFragment.skills && agentFragment.skills.length > 0) {
     const destSkillsDir = getSkillsDestDir(scope);
     fs.mkdirSync(destSkillsDir, { recursive: true });
-    let skillsInstalled = 0;
     agentFragment.skills.forEach(prefixedSkillName => {
       const originalSkillName = prefixedSkillName.replace(PREFIX, '');
-      const sourceFile = path.join(skillsSourceDir, `${originalSkillName}.md`);
-      if (fs.existsSync(sourceFile)) {
-        fs.copyFileSync(sourceFile, path.join(destSkillsDir, `${prefixedSkillName}.md`));
-        skillsInstalled++;
+      const sourceSkillDir = path.join(skillsSourceDir, originalSkillName);
+      const sourceSkillFile = path.join(sourceSkillDir, 'SKILL.md');
+      if (fs.existsSync(sourceSkillFile)) {
+        const finalSkillDir = path.join(destSkillsDir, `${PREFIX}${originalSkillName}`);
+        fs.mkdirSync(finalSkillDir, { recursive: true });
+        fs.copyFileSync(sourceSkillFile, path.join(finalSkillDir, 'SKILL.md'));
       }
     });
-    console.log(`   -> ${skillsInstalled} Skills dependientes instaladas automáticamente.`);
   }
 }
 
@@ -163,11 +165,18 @@ async function installAll() {
   const configFile = getConfigPath(scope);
 
   fs.mkdirSync(destSkillsDir, { recursive: true });
-  const skills = fs.readdirSync(skillsSourceDir).filter((f: string) => f.endsWith('.md'));
-  skills.forEach((file: string) => {
-    fs.copyFileSync(path.join(skillsSourceDir, file), path.join(destSkillsDir, `${PREFIX}${file}`));
+  const skillFolders = fs.readdirSync(skillsSourceDir).filter((f: string) => {
+    return fs.statSync(path.join(skillsSourceDir, f)).isDirectory();
   });
-  console.log(`✅ ${skills.length} Skills instaladas en ${scope} (con prefijo ${PREFIX}).`);
+  skillFolders.forEach((folder: string) => {
+    const sourceSkillFile = path.join(skillsSourceDir, folder, 'SKILL.md');
+    if (fs.existsSync(sourceSkillFile)) {
+      const destSkillDir = path.join(destSkillsDir, `${PREFIX}${folder}`);
+      fs.mkdirSync(destSkillDir, { recursive: true });
+      fs.copyFileSync(sourceSkillFile, path.join(destSkillDir, 'SKILL.md'));
+    }
+  });
+  console.log(`✅ ${skillFolders.length} Skills instaladas en ${scope} (con prefijo ${PREFIX}).`);
 
   let config = getOrCreateConfig(configFile);
   // Fix TS: Extraemos con fallback y reasignamos al final
@@ -214,9 +223,11 @@ async function uninstallAll() {
   console.log(`\n🗑️ Eliminando TODOS los MSKILLS de tu configuración ${scope}...\n`);
 
   if (fs.existsSync(destSkillsDir)) {
-    const files = fs.readdirSync(destSkillsDir).filter((f: string) => f.startsWith(PREFIX) && f.endsWith('.md'));
-    files.forEach((file: string) => fs.unlinkSync(path.join(destSkillsDir, file)));
-    console.log(`✅ ${files.length} Skills con prefijo ${PREFIX} eliminadas.`);
+    const folders = fs.readdirSync(destSkillsDir).filter((f: string) => f.startsWith(PREFIX) && fs.statSync(path.join(destSkillsDir, f)).isDirectory());
+    folders.forEach((folder: string) => {
+      fs.rmSync(path.join(destSkillsDir, folder), { recursive: true, force: true });
+    });
+    console.log(`✅ ${folders.length} Skills con prefijo ${PREFIX} eliminadas.`);
   }
 
   if (fs.existsSync(configFile)) {
@@ -269,9 +280,9 @@ async function uninstallAgent(agentName: string) {
 
   agentSkills.forEach(skillName => {
     if (!usedByOthers.has(skillName)) {
-      const skillFile = path.join(destSkillsDir, `${skillName}.md`);
-      if (fs.existsSync(skillFile)) {
-        fs.unlinkSync(skillFile);
+      const skillFolder = path.join(destSkillsDir, skillName);
+      if (fs.existsSync(skillFolder) && fs.statSync(skillFolder).isDirectory()) {
+        fs.rmSync(skillFolder, { recursive: true, force: true });
         deletedSkillsCount++;
       }
     }
@@ -299,12 +310,12 @@ async function uninstallSkill(skillName: string) {
     }
   }
 
-  const skillFile = path.join(destSkillsDir, `${finalSkillName}.md`);
-  if (fs.existsSync(skillFile)) {
-    fs.unlinkSync(skillFile);
-    console.log(`✅ Skill ${finalSkillName}.md eliminada correctamente.`);
+  const skillFolder = path.join(destSkillsDir, finalSkillName);
+  if (fs.existsSync(skillFolder) && fs.statSync(skillFolder).isDirectory()) {
+    fs.rmSync(skillFolder, { recursive: true, force: true });
+    console.log(`✅ Skill ${finalSkillName}/ eliminada correctamente.`);
   } else {
-    console.log(`❌ La skill ${finalSkillName}.md no existe en la carpeta.`);
+    console.log(`❌ La skill ${finalSkillName}/ no existe en la carpeta.`);
   }
 }
 
