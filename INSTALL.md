@@ -3,7 +3,7 @@
 ## Instalación completa
 
 ```bash
-npx npx @nexusdevelop/mskills
+npx @nexusdevelop/mskills
 ```
 
 Pregunta si deseas instalación global o local.
@@ -11,7 +11,7 @@ Pregunta si deseas instalación global o local.
 ## Instalación específica de agente
 
 ```bash
-npx npx @nexusdevelop/mskills agent backend
+npx @nexusdevelop/mskills agent backend
 ```
 
 Instala el agente y sus skills (carpetas `/SKILL.md`) automáticamente.
@@ -19,7 +19,7 @@ Instala el agente y sus skills (carpetas `/SKILL.md`) automáticamente.
 ## Instalación específica de skill
 
 ```bash
-npx npx @nexusdevelop/mskills skill nest-mastery
+npx @nexusdevelop/mskills skill nest-mastery
 ```
 
 Solo descarga la carpeta `/SKILL.md` de la skill.
@@ -27,7 +27,7 @@ Solo descarga la carpeta `/SKILL.md` de la skill.
 ## Desinstalación completa
 
 ```bash
-npx npx @nexusdevelop/mskills uninstall
+npx @nexusdevelop/mskills uninstall
 ```
 
 Borra todo rastro de mskills.
@@ -35,7 +35,7 @@ Borra todo rastro de mskills.
 ## Desinstalación de agente
 
 ```bash
-npx npx @nexusdevelop/mskills uninstall agent backend
+npx @nexusdevelop/mskills uninstall agent backend
 ```
 
 Borra el agente y las skills huérfanas que no use otro agente.
@@ -43,7 +43,7 @@ Borra el agente y las skills huérfanas que no use otro agente.
 ## Desinstalación de skill
 
 ```bash
-npx npx @nexusdevelop/mskills uninstall skill nest-mastery
+npx @nexusdevelop/mskills uninstall skill nest-mastery
 ```
 
 Prohíbe borrar si un agente la usa.

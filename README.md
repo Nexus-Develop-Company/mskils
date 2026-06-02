@@ -5,7 +5,7 @@ Arsenal de 56 Skills y 7 Agentes especializados para Full-Stack, Arquitectura, D
 ## 📥 Instalación completa
 
 ```bash
-npx mskills
+npx @nexusdevelop/mskills
 ```
 
 ## 📥 Instalación agéntica
@@ -13,7 +13,7 @@ npx mskills
 - [Leer utilidades para el nombre de los agentes](./UTILIDADES.md)
 
 ```bash
-npx npx @nexusdevelop/mskills agent < NOMBRE_DEL_AGENTE >
+npx @nexusdevelop/mskills agent < NOMBRE_DEL_AGENTE >
 ```
 
 ## 📥 Instalación de skills
@@ -21,7 +21,7 @@ npx npx @nexusdevelop/mskills agent < NOMBRE_DEL_AGENTE >
 - [Leer utilidades para el nombre de los skills](./UTILIDADES.md)
 
 ```bash
-npx npx @nexusdevelop/mskills skill < NOMBRE_DEL_SKILL >
+npx @nexusdevelop/mskills skill < NOMBRE_DEL_SKILL >
 ```
 
 - **Para la desintalación mismos comandos agregando uninstall luego de mskills.**
