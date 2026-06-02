@@ -1,33 +1,62 @@
 {
   "name": "@nexusdevelop/mskills",
   "version": "1.0.0",
-  "description": "Dopa tu OpenCode con 53 Skills y Agentes de nivel Dios para FullStack, Marketing y Arquitectura.",
-  "main": "dist/cli.js",
-  "bin": {
-    "mskills": "./dist/cli.js"
+  "description": "Potencia OpenCode con Skills y Agentes especializados para desarrollo Full Stack, Arquitectura de Software, DevOps, IA y Marketing.",
+  "author": "Nexus Develop",
+  "license": "GPL-3.0-or-later",
+
+  "homepage": "https://github.com/Nexus-Develop-Company/mskils",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nexus-Develop-Company/mskils.git"
   },
-  "files": [
-    "dist",
-    "base.json",
-    "agents",
-    "skills"
-  ],
-  "scripts": {
-    "dev": "tsx src/cli.ts",
-    "build": "tsc",
-    "prepublishOnly": "npm run build"
+  "bugs": {
+    "url": "https://github.com/Nexus-Develop-Company/mskils/issues"
   },
+
   "keywords": [
     "opencode",
     "ai",
-    "skills",
     "agents",
-    "fullstack",
+    "skills",
     "cli",
-    "mskills"
+    "developer-tools",
+    "typescript",
+    "automation",
+    "productivity",
+    "fullstack",
+    "architecture",
+    "devops",
+    "marketing",
+    "prompt-engineering"
   ],
-  "author": "Tu Nombre",
-  "license": "GPL-3.0-or-later",
+
+  "engines": {
+    "node": ">=20"
+  },
+
+  "main": "./dist/cli.js",
+
+  "bin": {
+    "mskills": "./dist/cli.js"
+  },
+
+  "files": [
+    "dist",
+    "agents",
+    "skills",
+    "base.json",
+    "README.md",
+    "LICENSE"
+  ],
+
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
+  },
+
   "devDependencies": {
     "@types/node": "^25.7.0",
     "tsx": "^4.21.0",
