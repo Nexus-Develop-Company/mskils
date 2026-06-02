@@ -1,5 +1,5 @@
 {
-  "name": "mskills",
+  "name": "@nexusdevelop/mskills",
   "version": "1.0.0",
   "description": "Dopa tu OpenCode con 53 Skills y Agentes de nivel Dios para FullStack, Marketing y Arquitectura.",
   "main": "dist/cli.js",

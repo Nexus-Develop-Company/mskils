@@ -13,7 +13,7 @@ npx mskills
 - [Leer utilidades para el nombre de los agentes](./UTILIDADES.md)
 
 ```bash
-npx mskills agent < NOMBRE_DEL_AGENTE >
+npx npx @nexusdevelop/mskills agent < NOMBRE_DEL_AGENTE >
 ```
 
 ## 📥 Instalación de skills
@@ -21,7 +21,7 @@ npx mskills agent < NOMBRE_DEL_AGENTE >
 - [Leer utilidades para el nombre de los skills](./UTILIDADES.md)
 
 ```bash
-npx mskills skill < NOMBRE_DEL_SKILL >
+npx npx @nexusdevelop/mskills skill < NOMBRE_DEL_SKILL >
 ```
 
 - **Para la desintalación mismos comandos agregando uninstall luego de mskills.**
